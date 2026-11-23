@@ -1,96 +1,89 @@
+import { useEffect, useState } from 'react'
+
+const API_URL = 'http://localhost:3000/books'
+
+const formatDate = (date) => (date ? new Date(date).toLocaleString('ko-KR') : '날짜 정보 없음')
 
 function BookDetail({ book, onClose, onEdit, onDelete }) {
+  const [detail, setDetail] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  // 날짜 형식 변경
-  const formatDate = (date) => {
-    if (!date) {
-      return '날짜 정보 없음'
+  useEffect(() => {
+    async function loadBookDetail(bookId) {
+      try {
+        const res = await fetch(`${API_URL}/${bookId}`)
+        if (res.status === 404) throw new Error('도서를 찾을 수 없습니다.')
+        if (!res.ok) throw new Error('도서 정보를 불러오지 못했습니다.')
+        const data = await res.json()
+        setDetail(data)
+        setError('')
+      } catch (err) {
+        setDetail(null)
+        setError(err.message === '도서를 찾을 수 없습니다.' ? err.message : '도서 정보를 불러오지 못했습니다.')
+      } finally {
+        setLoading(false)
+      }
     }
-
-    return new Date(date).toLocaleString('ko-KR')
-  }
+    loadBookDetail(book.id)
+  }, [book])
 
   return (
     <div className="modal-overlay">
       <div className="book-modal detail-modal">
-
         <div className="detail-header">
           <h2>도서 상세 정보</h2>
-
-          <button onClick={onClose} className="close-button">
-            ×
-          </button>
+          <button onClick={onClose} className="close-button">×</button>
         </div>
 
-        {/* 책 표지 */}
-        <div className="detail-cover">
-          {book.coverImageUrl ? (
-            <img src={book.coverImageUrl} alt={book.title} />
-          ) : (
-            <div className="cover-placeholder">
-              <strong>{book.title}</strong>
-              <small>{book.author}</small>
+        {loading && <p className="empty-message">도서 정보를 불러오는 중입니다.</p>}
+
+        {!loading && error && (
+          <>
+            <p className="empty-message">{error}</p>
+            <div className="form-buttons">
+              <button className="cancel-button" onClick={onClose}>닫기</button>
             </div>
-          )}
-        </div>
+          </>
+        )}
 
-        {/* 도서 정보 */}
-        <div className="detail-info">
+        {!loading && detail && (
+          <>
+            <div className="detail-cover">
+              {detail.coverImageUrl ? (
+                <img src={detail.coverImageUrl} alt={detail.title} />
+              ) : (
+                <div className="cover-placeholder">
+                  <strong>{detail.title}</strong>
+                  <small>{detail.author}</small>
+                </div>
+              )}
+            </div>
 
-          <h3>{book.title}</h3>
+            <div className="detail-info">
+              <h3>{detail.title}</h3>
+              <p>작가 : {detail.author}</p>
+              <p>종류 : {detail.type}</p>
+              <p>좋아요 : ♥ {detail.likes}</p>
 
-          <p>작가 : {book.author}</p>
-          <p>종류 : {book.type}</p>
-          <p>좋아요 : ♥ {book.likes}</p>
+              <div className="detail-content">
+                <strong>책 내용</strong>
+                <p>{detail.content}</p>
+              </div>
 
-          <div className="detail-content">
-            <strong>책 내용</strong>
-            <p>{book.content}</p>
-          </div>
+              <div className="date-info">
+                <p><strong>생성 날짜</strong><span>{formatDate(detail.createdAt)}</span></p>
+                <p><strong>수정 날짜</strong><span>{formatDate(detail.updatedAt)}</span></p>
+              </div>
+            </div>
 
-          {/* 생성 날짜 및 수정 날짜 */}
-          <div className="date-info">
-
-            <p>
-              <strong>생성 날짜</strong>
-              <span>{formatDate(book.createdAt)}</span>
-            </p>
-
-            <p>
-              <strong>수정 날짜</strong>
-              <span>{formatDate(book.updatedAt)}</span>
-            </p>
-
-          </div>
-
-        </div>
-
-        {/* 수정 및 삭제 버튼 */}
-        <div className="form-buttons">
-
-          <button
-            className="save-button"
-            onClick={onEdit}
-          >
-            수정
-          </button>
-
-          <button
-            className="delete-button"
-            onClick={onDelete}
-          >
-            삭제
-          </button>
-
-          <button
-            className="cancel-button"
-            onClick={onClose}
-          >
-            닫기
-          </button>
-
-        </div>
-
+            <div className="form-buttons">
+              <button className="save-button" onClick={onEdit}>수정</button>
+              <button className="delete-button" onClick={onDelete}>삭제</button>
+              <button className="cancel-button" onClick={onClose}>닫기</button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
