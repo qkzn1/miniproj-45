@@ -14,24 +14,55 @@ function BookEdit({ book, onUpdate, onCancel }) {
   )
 
   // 수정 버튼 클릭
-  const handleSubmit = (e) => {
+  
+const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (title.trim() === '' || author.trim() === '') {
-      alert('제목과 작가를 입력해주세요.')
-      return
+    // 필수 입력값 검사
+    if (!title.trim() || !author.trim() ||
+        !type.trim() || !content.trim()) {
+        alert('제목, 작가, 장르, 내용을 모두 입력해 주세요.')
+        return
     }
 
-    const updateBook = {
-      title: title,
-      author: author,
-      type: type,
-      content: content,
-      coverImageUrl: coverImageUrl
+    // 변경된 필드만 담을 객체
+    const updateBook = {}
+    let isChanged = false
+
+    if (title !== book.title) {
+        updateBook.title = title
+        isChanged = true
     }
 
+    if (author !== book.author) {
+        updateBook.author = author
+        isChanged = true
+    }
+
+    if (type !== book.type) {
+        updateBook.type = type
+        isChanged = true
+    }
+
+    if (content !== book.content) {
+        updateBook.content = content
+        isChanged = true
+    }
+
+    if (coverImageUrl !== (book.coverImageUrl || '')) {
+        updateBook.coverImageUrl = coverImageUrl
+        isChanged = true
+    }
+
+    // 아무것도 변경하지 않은 경우
+    if (!isChanged) {
+        alert('변경된 내용이 없습니다.')
+        return
+    }
+
+    // 부모 컴포넌트에 변경된 정보 전달
     onUpdate(book.id, updateBook)
-  }
+}
 
   return (
     <div className="modal-overlay">
