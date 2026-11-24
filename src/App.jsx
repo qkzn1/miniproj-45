@@ -4,6 +4,7 @@ import BookList from './components/BookList'
 import BookDetail from './components/BookDetail'
 import BookCreate from './components/BookCreate'
 import BookEdit from './components/BookEdit'
+import AiCover from './components/AiCover'
 
 const API_URL = 'http://localhost:3000/books'
 
@@ -17,6 +18,7 @@ function App() {
   const [showCreate, setShowCreate] = useState(false)
   const [editBook, setEditBook] = useState(null)
   const [lightTheme, setLightTheme] = useState('sage')
+  const [view, setView] = useState('library')
   
   
   
@@ -163,6 +165,36 @@ function App() {
     }
   }
 
+  // AI 표지 저장
+  const handleCoverSave = async (id, imageSrc) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          coverImageUrl: imageSrc
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('표지 저장 요청 실패')
+      }
+
+      const data = await response.json()
+
+      setBooks((prevBooks) => prevBooks.map((book) =>
+        book.id === id ? data : book
+      ))
+
+      alert('AI 표지가 저장되었습니다.')
+    } catch (error) {
+      console.log('표지 저장 오류:', error)
+      alert('표지 저장에 실패했습니다. 서버 연결을 확인해주세요.')
+    }
+  }
+
   // 좋아요 변경
   const handleLike = async (book) => {
     let newLikes = book.likes
@@ -235,15 +267,17 @@ function App() {
         </div>
 
         <nav className="side-menu">
-          <button onClick={() => setSelectedId(null)}>
-            ⌂ Home
-          </button>
-
-          <button className="active">
+          <button
+            className={view === 'library' ? 'active' : ''}
+            onClick={() => setView('library')}
+          >
             ▤ Library
           </button>
 
-          <button>
+          <button
+            className={view === 'ai' ? 'active' : ''}
+            onClick={() => setView('ai')}
+          >
             ✧ AI Integration
           </button>
 
@@ -255,6 +289,13 @@ function App() {
         </nav>
       </aside>
 
+      {view === 'ai' && (
+        <main className="main-content">
+          <AiCover books={books} onCoverSave={handleCoverSave} />
+        </main>
+      )}
+
+      {view === 'library' && (
       <main className="main-content">
         <header className="top-header">
           <div className="search-box">
@@ -374,6 +415,7 @@ function App() {
 )}
         </section>
       </main>
+      )}
 
       {showCreate && (
         <BookCreate

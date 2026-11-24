@@ -82,7 +82,6 @@ function BookDetail({ book, onClose, onEdit, onDelete }) {
             <div className="form-buttons">
               <button className="save-button" onClick={onEdit}>수정</button>
               <button className="delete-button" onClick={onDelete}>삭제</button>
-              <button className="cancel-button" onClick={onClose}>닫기</button>
             </div>
           </>
         )}
