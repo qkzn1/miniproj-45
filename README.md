@@ -12,7 +12,7 @@ Bookworm은 사용자가 책의 제목, 저자, 장르, 내용을 직접 등록�
 - **데이터 관리:** 로컬 `db.json` 기반 REST API
 - **AI 활용:** OpenAI 이미지 생성 API (`gpt-image-2`)
 
-> **![메인페이지](miniproj-45/public/cap1.png)**
+> **![Bookworm 메인 화면](./public/cap1.png)**
 
 ## 2. 주요 기능
 
