@@ -7,6 +7,7 @@ import BookEdit from './components/BookEdit'
 import AiCover from './components/AiCover'
 
 const API_URL = 'http://localhost:3000/books'
+const BOOKS_PER_PAGE = 8
 
 function App() {
   const [books, setBooks] = useState([])
@@ -19,6 +20,7 @@ function App() {
   const [editBook, setEditBook] = useState(null)
   const [lightTheme, setLightTheme] = useState('sage')
   const [view, setView] = useState('library')
+  const [page, setPage] = useState(1)
   
   
   
@@ -248,6 +250,13 @@ function App() {
     return matchesSearch && matchesType
   })
 
+  const totalPages = Math.max(1, Math.ceil(filteredBooks.length / BOOKS_PER_PAGE))
+  const currentPage = Math.min(page, totalPages)
+  const pagedBooks = filteredBooks.slice(
+    (currentPage - 1) * BOOKS_PER_PAGE,
+    currentPage * BOOKS_PER_PAGE
+  )
+
   const popularBooks = [...books]
 
   popularBooks.sort((a, b) => {
@@ -305,14 +314,20 @@ function App() {
               type="text"
               placeholder="제목 또는 작가 검색"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value)
+                setPage(1)
+              }}
             />
           </div>
 
           <select
             className="filter-button"
             value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
+            onChange={(e) => {
+              setTypeFilter(e.target.value)
+              setPage(1)
+            }}
           >
             <option value="전체">전체 종류</option>
             <option value="로맨스">로맨스</option>
@@ -385,6 +400,14 @@ function App() {
               <h2>My Books ({filteredBooks.length})</h2>
               <p>내 서재에 등록된 도서 목록</p>
             </div>
+
+            <button
+              className="save-button"
+              onClick={() => setShowCreate(true)}
+              style={{ padding: '10px 18px', border: 'none', borderRadius: '4px', fontSize: '13px', cursor: 'pointer' }}
+            >
+              + New Book
+            </button>
           </div>
 
           {loading ? (
@@ -406,11 +429,41 @@ function App() {
     )}
 
     <BookList
-      books={filteredBooks}
+      books={pagedBooks}
       onSelect={setSelectedId}
       onLike={handleLike}
-      onAdd={() => setShowCreate(true)}
     />
+
+    {totalPages > 1 && (
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '30px' }}>
+        <button
+          className="filter-button"
+          onClick={() => setPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          ‹ 이전
+        </button>
+
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+          <button
+            key={number}
+            className="filter-button"
+            onClick={() => setPage(number)}
+            style={number === currentPage ? { background: 'var(--main-dark)', color: 'white' } : undefined}
+          >
+            {number}
+          </button>
+        ))}
+
+        <button
+          className="filter-button"
+          onClick={() => setPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          다음 ›
+        </button>
+      </div>
+    )}
   </>
 )}
         </section>
