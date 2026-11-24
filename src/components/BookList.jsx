@@ -1,5 +1,5 @@
 
-function BookList({ books, onSelect, onLike, onAdd }) {
+function BookList({ books, onSelect, onLike }) {
 
   return (
     <div className="book-grid">
@@ -67,21 +67,6 @@ function BookList({ books, onSelect, onLike, onAdd }) {
         </div>
 
       ))}
-
-
-      {/* 도서 등록 카드 */}
-      <button
-        className="add-book-card"
-        onClick={onAdd}
-      >
-
-        <span className="add-icon">+</span>
-
-        <strong>Add New Book</strong>
-
-        <small>새로운 도서 등록하기</small>
-
-      </button>
 
     </div>
   )
