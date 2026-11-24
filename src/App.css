@@ -1038,3 +1038,116 @@ button {
   }
 
 }
+
+/* ========================================
+   다크 모드
+======================================== */
+
+.top-header {
+  flex-wrap: wrap;
+}
+
+.app-layout :is(button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--main-dark);
+  outline-offset: 3px;
+}
+
+/* 밝은 화면의 보조 글씨 대비 개선 */
+.app-layout {
+  --sub-text-color: #4f5e53;
+}
+
+.app-layout[data-theme="dark"] {
+  color-scheme: dark;
+
+  --background-color: #161e19;
+  --card-color: #242e27;
+  --text-color: #f3f6f3;
+  --sub-text-color: #c1cec4;
+  --main-color: #a8d4b2;
+  --main-dark: #bce8c7;
+  --main-light: #2d4033;
+  --border-color: #617468;
+  --hover-color: #36483b;
+  --like-color: #f3abab;
+}
+
+.app-layout[data-theme="dark"] :is(
+  .page-title h1,
+  .section-title h2,
+  .book-info h3
+) {
+  color: var(--text-color);
+}
+
+.app-layout[data-theme="dark"] :is(
+  .brand-icon,
+  .add-icon,
+  .save-button
+) {
+  color: #161e19;
+}
+
+.app-layout .genre-select {
+  width: 120px;
+  min-width: 0;
+  flex: 0 1 120px;
+}
+
+.app-layout .dark-mode-toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 34px;
+  padding: 0;
+  border: 2px solid var(--main-dark);
+  border-radius: 999px;
+  background: var(--card-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.app-layout .dark-mode-toggle .toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--main-dark);
+  color: var(--card-color);
+  transition: transform 0.2s;
+}
+
+.app-layout .dark-mode-toggle[aria-checked="true"] {
+  background: var(--main-light);
+}
+
+.app-layout .dark-mode-toggle[aria-checked="true"] .toggle-knob {
+  transform: translateX(30px);
+}
+
+/* 다크모드에서 양옆 여백도 어둡게 */
+body:has(.app-layout[data-theme="dark"]) {
+  background-color: #161e19;
+}
+
+/* 오른쪽 위 몬스테라 */
+.app-layout[data-theme="dark"]::before {
+  opacity: 0.25;
+  filter: saturate(1.2);
+}
+
+/* 왼쪽 아래 나뭇잎 */
+.app-layout[data-theme="dark"]::after {
+  opacity: 0.28;
+  filter: brightness(2);
+}
+
+/* 다크모드에서 화면 양옆 테두리 선 숨기기 */
+body:has(.app-layout[data-theme="dark"]) #root {
+  border-inline-color: transparent;
+}

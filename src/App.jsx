@@ -18,7 +18,7 @@ function App() {
   const [selectedId, setSelectedId] = useState(null)
   const [showCreate, setShowCreate] = useState(false)
   const [editBook, setEditBook] = useState(null)
-  const [lightTheme, setLightTheme] = useState('sage')
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const [view, setView] = useState('library')
   const [page, setPage] = useState(1)
   
@@ -27,10 +27,6 @@ function App() {
 
   
 
-  const selectLightTheme = (nextTheme) => {
-    setLightTheme(nextTheme)
-    
-  }
 
   // 도서 목록 조회
   useEffect(() => {
@@ -268,7 +264,7 @@ function App() {
   })
 
   return (
-   <div className="app-layout" data-theme={lightTheme}>
+   <div className="app-layout" data-theme={isDarkMode ? 'dark' : undefined}>
       <aside className="sidebar">
         <div className="brand">
           <span className="brand-icon">B</span>
@@ -322,7 +318,7 @@ function App() {
           </div>
 
           <select
-            className="filter-button"
+            className="filter-button genre-select"
             value={typeFilter}
             onChange={(e) => {
               setTypeFilter(e.target.value)
@@ -357,6 +353,28 @@ function App() {
             <option value="어린이 / 청소년">어린이 / 청소년</option>
             <option value="기타">기타</option>
           </select>
+
+          <button
+            type="button"
+            role="switch"
+            className="dark-mode-toggle"
+            aria-checked={isDarkMode}
+            aria-label="다크모드"
+            onClick={() => setIsDarkMode((previous) => !previous)}
+          >
+            <span className="toggle-knob">
+              {isDarkMode ? (
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+                  <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              )}
+            </span>
+          </button>
 
           
         </header>
@@ -460,7 +478,7 @@ function App() {
             key={number}
             className="filter-button"
             onClick={() => setPage(number)}
-            style={number === currentPage ? { background: 'var(--main-dark)', color: 'white' } : undefined}
+            style={number === currentPage ? { background: 'var(--main-dark)', color: 'var(--card-color)' } : undefined}
           >
             {number}
           </button>
