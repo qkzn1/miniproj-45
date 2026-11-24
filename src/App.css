@@ -127,7 +127,7 @@ button {
 
   opacity: 0.12;
 
-  background-image: url("/images/monstera.png");
+  background-image: url("/monstera.png");
 
   background-repeat: no-repeat;
   background-size: contain;
@@ -148,7 +148,7 @@ button {
 
   opacity: 0.08;
 
-  background-image: url("/images/monstera.png");
+  background-image: url("/monstera.png");
   background-position: left bottom;
   transform: scaleX(-1);
 
