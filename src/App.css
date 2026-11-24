@@ -127,10 +127,10 @@ button {
 
   opacity: 0.12;
 
-  background-image: url("https://png.pngtree.com/png-vector/20210924/ourmid/pngtree-monstera-leaf-plant-png-image_3943405.png");
+  background-image: url("/images/monstera.png");
 
   background-repeat: no-repeat;
-  background-size: contaifn;
+  background-size: contain;
   background-position: right top;
 }
 
@@ -148,7 +148,9 @@ button {
 
   opacity: 0.08;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Cpath fill='%23315a3a' d='M150 390 C80 310 30 220 65 125 C90 60 150 30 210 65 C280 105 250 220 150 390 Z M120 145 Q105 110 95 125 Q100 155 120 170 Z M175 120 Q190 85 205 100 Q205 130 180 150 Z M100 210 Q65 190 70 220 Q90 245 115 240 Z M185 210 Q230 180 225 220 Q210 245 175 250 Z'/%3E%3C/svg%3E");
+  background-image: url("/images/monstera.png");
+  background-position: left bottom;
+  transform: scaleX(-1);
 
   background-repeat: no-repeat;
   background-size: contain;
@@ -160,7 +162,6 @@ button {
   position: relative;
   z-index: 1;
 }
-
 
 /* ========================================
    5. 왼쪽 사이드바
