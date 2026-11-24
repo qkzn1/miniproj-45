@@ -286,7 +286,10 @@ function App() {
             ✧ AI Integration
           </button>
 
-          <button>
+          <button
+            className={view === 'settings' ? 'active' : ''}
+            onClick={() => setView('settings')}
+          >
             ⚙︎ Settings
           </button>
 
@@ -297,6 +300,48 @@ function App() {
       {view === 'ai' && (
         <main className="main-content">
           <AiCover books={books} onCoverSave={handleCoverSave} />
+        </main>
+      )}
+
+      {view === 'settings' && (
+        <main className="main-content">
+          <section className="page-title">
+            <div>
+              <span className="breadcrumb">Settings / Preferences</span>
+              <h1>Settings</h1>
+              <p>Bookworm의 화면 환경을 관리합니다.</p>
+            </div>
+          </section>
+
+          <section className="settings-section">
+            <div className="settings-heading">
+              <div>
+                <span className="settings-eyebrow">APPEARANCE</span>
+                <h2>화면 설정</h2>
+                <p>더 편안하게 서재를 이용할 수 있도록 화면을 설정합니다.</p>
+              </div>
+
+              <span className="settings-heading-icon">⚙</span>
+            </div>
+
+            <div className="settings-option">
+              <div className="settings-option-copy">
+                <strong>다크 모드</strong>
+                <span>어두운 화면 테마를 사용합니다.</span>
+              </div>
+
+              <button
+                type="button"
+                role="switch"
+                className="settings-switch"
+                aria-label="다크 모드"
+                aria-checked={isDarkMode}
+                onClick={() => setIsDarkMode((previous) => !previous)}
+              >
+                <span className="settings-switch-knob" />
+              </button>
+            </div>
+          </section>
         </main>
       )}
 

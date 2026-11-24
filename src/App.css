@@ -1151,3 +1151,421 @@ body:has(.app-layout[data-theme="dark"]) {
 body:has(.app-layout[data-theme="dark"]) #root {
   border-inline-color: transparent;
 }
+
+/* ========================================
+   20. Settings 화면
+======================================== */
+
+.settings-section {
+  max-width: 850px;
+  padding: 28px 30px;
+
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  box-shadow: 0 8px 24px #26392d08;
+  text-align: left;
+}
+
+.settings-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-eyebrow {
+  color: var(--main-color);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.settings-heading h2 {
+  margin: 8px 0 6px;
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+.settings-heading p {
+  margin: 0;
+  color: var(--sub-text-color);
+  font-size: 12px;
+}
+
+.settings-heading-icon {
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  background: var(--main-light);
+  color: var(--main-dark);
+
+  font-size: 20px;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 24px 0 6px;
+}
+
+.settings-option-copy strong,
+.settings-option-copy span {
+  display: block;
+}
+
+.settings-option-copy strong {
+  font-size: 14px;
+}
+
+.settings-option-copy span {
+  margin-top: 6px;
+  color: var(--sub-text-color);
+  font-size: 12px;
+}
+
+/* 다크 모드 스위치 */
+.settings-switch {
+  position: relative;
+  flex-shrink: 0;
+
+  width: 54px;
+  height: 30px;
+  padding: 3px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+
+  background: var(--main-light);
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settings-switch-knob {
+  display: block;
+
+  width: 22px;
+  height: 22px;
+
+  border-radius: 50%;
+  background: #fff;
+
+  box-shadow: 0 1px 4px #00000020;
+  transition: transform 0.2s;
+}
+
+.settings-switch[aria-checked="true"] {
+  background: var(--main-dark);
+}
+
+.settings-switch[aria-checked="true"] .settings-switch-knob {
+  transform: translateX(24px);
+}
+
+
+/* ========================================
+   21. AI Integration 화면
+======================================== */
+
+.ai-cover-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(340px, 0.9fr)
+    minmax(380px, 1.1fr);
+
+  align-items: stretch;
+  gap: 24px;
+  text-align: left;
+}
+
+/* 패널 공통 디자인 */
+.ai-form-panel,
+.ai-preview-panel {
+  min-width: 0;
+  padding: 24px;
+
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  box-shadow: 0 8px 24px #26392d08;
+}
+
+/* 패널 제목 */
+.ai-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+/* 단계 표시 */
+.ai-step {
+  display: grid;
+  flex: 0 0 34px;
+
+  width: 34px;
+  height: 34px;
+
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: var(--main-light);
+  color: var(--main-dark);
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ai-panel-heading h2 {
+  margin: 1px 0 5px;
+  color: var(--text-color);
+  font-size: 17px;
+}
+
+.ai-panel-heading p {
+  margin: 0;
+
+  color: var(--sub-text-color);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* 선택한 도서 정보 */
+.ai-book-form {
+  gap: 10px;
+}
+
+.ai-selected-book {
+  padding: 13px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+
+  background: var(--background-color);
+}
+
+.ai-selected-book > * {
+  display: block;
+}
+
+.ai-selected-label {
+  margin-bottom: 7px;
+
+  color: var(--main-color);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ai-selected-book strong {
+  font-size: 13px;
+}
+
+.ai-selected-book span:not(.ai-selected-label) {
+  margin-top: 4px;
+
+  color: var(--sub-text-color);
+  font-size: 11px;
+}
+
+.ai-selected-book p {
+  margin: 9px 0 0;
+
+  color: var(--text-color);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* 이미지 설정 */
+.ai-settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ai-settings-row > div {
+  min-width: 0;
+}
+
+/* 비용 안내 */
+.ai-cost-notice {
+  margin: 2px 0 0;
+
+  color: var(--sub-text-color);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* 오류 메시지 */
+.ai-error {
+  margin: 0;
+  color: #d9534f;
+  font-size: 12px;
+}
+
+/* 이미지 생성 버튼 */
+.ai-generate-button {
+  width: 100%;
+  margin-top: 7px;
+  padding: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ai-generate-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+/* 미리보기 패널 */
+.ai-preview-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 이미지 미리보기 영역 */
+.ai-preview-stage {
+  flex: 1;
+  min-height: 570px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 28px;
+  overflow: hidden;
+
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+
+  background: linear-gradient(
+    145deg,
+    var(--background-color),
+    var(--main-light)
+  );
+}
+
+/* 생성된 이미지 */
+.ai-preview-stage img {
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+  height: 520px;
+  max-height: 70vh;
+
+  object-fit: contain;
+
+  border-radius: 3px;
+  box-shadow: 0 12px 30px #17251a25;
+}
+
+/* 이미지가 없을 때 */
+.ai-preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--sub-text-color);
+  text-align: center;
+}
+
+.ai-preview-icon {
+  display: grid;
+
+  width: 58px;
+  height: 58px;
+
+  place-items: center;
+
+  border-radius: 17px;
+
+  background: var(--card-color);
+  color: var(--main-color);
+
+  font-size: 27px;
+}
+
+.ai-preview-placeholder strong {
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.ai-preview-placeholder small {
+  font-size: 11px;
+}
+
+/* 미리보기 하단 정보 */
+.ai-preview-caption {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 13px;
+
+  color: var(--sub-text-color);
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+
+/* ========================================
+   22. 반응형 디자인
+======================================== */
+
+@media (max-width: 900px) {
+  .ai-cover-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-preview-stage {
+    min-height: 480px;
+  }
+
+  .ai-preview-stage img {
+    height: 430px;
+  }
+}
+
+@media (max-width: 500px) {
+  .settings-section,
+  .ai-form-panel,
+  .ai-preview-panel {
+    padding: 18px;
+  }
+
+  .settings-option {
+    align-items: flex-start;
+  }
+
+  .ai-settings-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-preview-stage {
+    min-height: 360px;
+    padding: 15px;
+  }
+
+  .ai-preview-stage img {
+    height: 330px;
+  }
+}

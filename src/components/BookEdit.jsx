@@ -9,9 +9,6 @@ function BookEdit({ book, onUpdate, onCancel }) {
   const [author, setAuthor] = useState(book.author)
   const [type, setType] = useState(book.type)
   const [content, setContent] = useState(book.content)
-  const [coverImageUrl, setCoverImageUrl] = useState(
-    book.coverImageUrl || ''
-  )
 
   // 수정 버튼 클릭
   
@@ -49,11 +46,6 @@ const handleSubmit = (e) => {
         isChanged = true
     }
 
-    if (coverImageUrl !== (book.coverImageUrl || '')) {
-        updateBook.coverImageUrl = coverImageUrl
-        isChanged = true
-    }
-
     // 아무것도 변경하지 않은 경우
     if (!isChanged) {
         alert('변경된 내용이 없습니다.')
@@ -82,8 +74,6 @@ const handleSubmit = (e) => {
             setType={setType}
             content={content}
             setContent={setContent}
-            coverImageUrl={coverImageUrl}
-            setCoverImageUrl={setCoverImageUrl}
           />
 
           <div className="form-buttons">

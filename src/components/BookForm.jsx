@@ -7,9 +7,7 @@ function BookForm({
   type,
   setType,
   content,
-  setContent,
-  coverImageUrl,
-  setCoverImageUrl
+  setContent
 }) {
   return (
     <div className="book-form">
@@ -71,15 +69,6 @@ function BookForm({
         placeholder="책 내용을 입력하세요"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-      />
-
-      {/* 표지 이미지 주소 */}
-      <label>표지 이미지 URL</label>
-      <input
-        type="text"
-        placeholder="이미지 주소를 입력하세요"
-        value={coverImageUrl}
-        onChange={(e) => setCoverImageUrl(e.target.value)}
       />
 
     </div>

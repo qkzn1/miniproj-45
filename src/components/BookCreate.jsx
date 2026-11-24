@@ -8,7 +8,6 @@ function BookCreate({ onCreate, onCancel }) {
   const [author, setAuthor] = useState('')
   const [type, setType] = useState('로맨스')
   const [content, setContent] = useState('')
-  const [coverImageUrl, setCoverImageUrl] = useState('')
   const [error, setError] = useState('')
 
   // 등록 버튼 클릭
@@ -37,7 +36,7 @@ function BookCreate({ onCreate, onCancel }) {
       author: author.trim(),
       type: type,
       content: content.trim(),
-      coverImageUrl: coverImageUrl.trim()
+      coverImageUrl: ''
     }
 
     onCreate(newBook)
@@ -61,8 +60,6 @@ function BookCreate({ onCreate, onCancel }) {
             setType={setType}
             content={content}
             setContent={setContent}
-            coverImageUrl={coverImageUrl}
-            setCoverImageUrl={setCoverImageUrl}
           />
 
           {error && <p className="form-error" style={{ color: '#d9534f' }}>{error}</p>}

@@ -81,64 +81,96 @@ function AiCover({ books, onCoverSave }) {
         </div>
       </section>
 
-      <section className="library-section" style={{ display: 'flex', gap: '30px', alignItems: 'flex-start' }}>
-        <div className="book-form" style={{ flex: 1 }}>
-          <label>도서 선택</label>
-          <select value={bookId} onChange={(e) => handleSelect(e.target.value)}>
-            <option value="">도서를 선택하세요</option>
-            {books.map((item) => (
-              <option key={item.id} value={item.id}>{item.title} - {item.author}</option>
-            ))}
-          </select>
+      <section className="ai-cover-layout">
+        <div className="ai-form-panel">
+          <div className="ai-panel-heading">
+            <span className="ai-step">01</span>
+            <div>
+              <h2>표지 생성 설정</h2>
+              <p>도서 정보를 선택하고 원하는 이미지 품질을 설정하세요.</p>
+            </div>
+          </div>
 
-          {book && (
-            <p style={{ margin: 0, fontSize: '12px', color: 'var(--sub-text-color)' }}>
-              {book.type} · {book.content}
+          <div className="book-form ai-book-form">
+            <label>도서 선택</label>
+            <select value={bookId} onChange={(e) => handleSelect(e.target.value)}>
+              <option value="">도서를 선택하세요</option>
+              {books.map((item) => (
+                <option key={item.id} value={item.id}>{item.title} - {item.author}</option>
+              ))}
+            </select>
+
+            {book && (
+              <div className="ai-selected-book">
+                <span className="ai-selected-label">선택한 도서</span>
+                <strong>{book.title}</strong>
+                <span>{book.author} · {book.type}</span>
+                <p>{book.content}</p>
+              </div>
+            )}
+
+            <label>OpenAI API Key</label>
+            <input
+              type="password"
+              placeholder="sk-..."
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              autoComplete="off"
+            />
+
+            <div className="ai-settings-row">
+              <div>
+                <label>이미지 크기</label>
+                <input type="text" value="1024 × 1536 (세로형)" readOnly />
+              </div>
+
+              <div>
+                <label>품질</label>
+                <select value={quality} onChange={(e) => setQuality(e.target.value)}>
+                  <option value="low">low</option>
+                  <option value="medium">medium</option>
+                  <option value="high">high</option>
+                  <option value="auto">auto</option>
+                </select>
+              </div>
+            </div>
+
+            <p className="ai-cost-notice">
+              ⓘ 생성할 때마다 OpenAI API 비용이 발생합니다. API Key는 저장되지 않습니다.
             </p>
-          )}
 
-          <label>OpenAI API Key</label>
-          <input
-            type="password"
-            placeholder="sk-..."
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-          />
+            {error && <p className="ai-error" role="alert">{error}</p>}
 
-          <label>이미지 크기</label>
-          <input type="text" value="1024x1536 (세로)" readOnly />
-
-          <label>품질</label>
-          <select value={quality} onChange={(e) => setQuality(e.target.value)}>
-            <option value="low">low</option>
-            <option value="medium">medium</option>
-            <option value="high">high</option>
-            <option value="auto">auto</option>
-          </select>
-
-          <p style={{ margin: 0, fontSize: '12px', color: 'var(--sub-text-color)' }}>
-            생성할 때마다 OpenAI API 비용이 발생합니다. API Key는 저장되지 않습니다.
-          </p>
-
-          {error && <p style={{ margin: 0, color: '#d9534f' }}>{error}</p>}
-
-          <div className="form-buttons">
-            <button className="save-button" onClick={handleGenerateCover} disabled={loading}>
-              {loading ? '생성 중...' : preview ? '다시 생성' : 'AI 표지 생성'}
+            <button className="save-button ai-generate-button" onClick={handleGenerateCover} disabled={loading}>
+              {loading ? '생성 중...' : preview ? '↻ 다시 생성하기' : '✧ AI 표지 생성하기'}
             </button>
           </div>
         </div>
 
-        <div style={{ width: '260px' }}>
-          <div className="detail-cover">
+        <div className="ai-preview-panel">
+          <div className="ai-panel-heading">
+            <span className="ai-step">02</span>
+            <div>
+              <h2>미리보기</h2>
+              <p>생성된 도서 표지가 여기에 표시됩니다.</p>
+            </div>
+          </div>
+
+          <div className="ai-preview-stage">
             {preview || book?.coverImageUrl ? (
-              <img src={preview || book.coverImageUrl} alt={book?.title} />
+              <img src={preview || book.coverImageUrl} alt={book?.title || '생성된 도서 표지'} />
             ) : (
-              <div className="cover-placeholder">
-                <strong>{book ? book.title : '미리보기'}</strong>
-                <small>{book ? book.author : '도서를 선택하세요'}</small>
+              <div className="ai-preview-placeholder">
+                <span className="ai-preview-icon">▧</span>
+                <strong>{book ? book.title : '표지 미리보기'}</strong>
+                <small>{book ? book.author : '도서를 선택하면 미리보기가 준비됩니다.'}</small>
               </div>
             )}
+          </div>
+
+          <div className="ai-preview-caption">
+            <span>BOOK COVER PREVIEW</span>
+            <span>2 : 3</span>
           </div>
         </div>
       </section>
