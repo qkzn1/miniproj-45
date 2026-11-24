@@ -12,7 +12,7 @@ Bookworm은 사용자가 책의 제목, 저자, 장르, 내용을 직접 등록�
 - **데이터 관리:** 로컬 `db.json` 기반 REST API
 - **AI 활용:** OpenAI 이미지 생성 API (`gpt-image-2`)
 
-> **![메인페이지](./public/cap1)**
+> **![메인페이지](miniproj-45/public/cap1)**
 
 ## 2. 주요 기능
 
@@ -35,21 +35,21 @@ Bookworm은 사용자가 책의 제목, 저자, 장르, 내용을 직접 등록�
 
 상단 검색창과 장르 필터를 이용해 도서를 탐색하고, 등록된 도서를 카드 형태로 확인할 수 있습니다. 좋아요 수를 기준으로 인기 도서 TOP 3도 표시합니다.
 
-> **![Library 탭](./public/cap2)**
+> **![Library 탭](miniproj-45/public/cap2)**
 
 ### 3.2 도서 등록
 
 `+ New Book` 버튼을 클릭하여 제목, 저자, 장르 및 도서 내용을 입력하고 새 도서를 추가합니다.
 
-> **![도서 등록](./public/cap3)**
+> **![도서 등록](miniproj-45/public/cap3)**
 
 ### 3.3 도서 상세 조회 및 수정·삭제
 
 도서 카드를 선택하면 상세 모달에서 도서 정보와 표지를 볼 수 있습니다. 수정 기능으로 기존 정보를 변경하거나, 삭제 확인창을 거쳐 도서를 삭제할 수 있습니다.
 
-> **![도서 상세 정보](./public/cap4)**
+> **![도서 상세 정보](miniproj-45/public/cap4)**
 >
-> **![도서 수정](./public/cap5)**
+> **![도서 수정](miniproj-45/public/cap5)**
 
 ### 3.4 AI Integration — AI 도서 표지 생성
 
@@ -62,11 +62,11 @@ Bookworm은 사용자가 책의 제목, 저자, 장르, 내용을 직접 등록�
 
 현재 업로드된 코드의 모델은 **`gpt-image-2`로 고정**되어 있으며, 이미지 크기는 **`1024×1536` 세로형 고정**입니다. 모델 및 이미지 크기를 직접 선택하는 UI는 구현되어 있지 않습니다.
 
-> **![AI Integration 초기 화면](./public/cap6)**
+> **![AI Integration 초기 화면](miniproj-45/public/cap6)**
 >
-> **![AI 표지 생성 성공 화면](./public/cap7)**
+> **![AI 표지 생성 성공 화면](miniproj-45/public/cap7)**
 >
-> **![AI 생성 표지가 도서 카드에 반영된 모습](./public/cap8)**
+> **![AI 생성 표지가 도서 카드에 반영된 모습](miniproj-45/public/cap8)**
 
 **주의:** AI 이미지를 생성하면 실제 API 이용 요금이 발생할 수 있습니다. API 키는 브라우저의 React 상태에서 입력·사용되며 `db.json`에 저장하는 로직은 없지만, **현재 구현은 브라우저에서 OpenAI API를 직접 호출**하므로 공개 배포용 보안 구조는 아닙니다.
 
@@ -74,7 +74,7 @@ Bookworm은 사용자가 책의 제목, 저자, 장르, 내용을 직접 등록�
 
 Settings 탭에서 다크 모드 설정을 변경할 수 있습니다. My Library 상단에서도 테마를 전환할 수 있습니다.
 
-> **![Settings 탭 다크 모드 설정](./public/cap9)**
+> **![Settings 탭 다크 모드 설정](miniproj-45/public/cap9)**
 
 ## 4. 기술 스택
 
@@ -136,7 +136,7 @@ npx json-server@0.17.4 --watch db.json --port 3000
 
 브라우저에서 `http://localhost:3000/books`를 열어 JSON 데이터가 표시되는지 확인합니다.
 
-> **![JSON 응답 화면](./public/cap10)**
+> **![JSON 응답 화면](miniproj-45/public/cap10)**
 
 ### 6.3 React 실행 — 터미널 2
 
