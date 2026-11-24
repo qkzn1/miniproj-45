@@ -210,12 +210,3 @@ Vite가 출력한 주소(일반적으로 `http://localhost:5173`)로 접속합�
 
 ---
 
-### 스크린샷 정리 팁
-
-실제 이미지를 추가할 때 `docs/screenshots/` 폴더를 만든 뒤, 위의 `[스크린샷 삽입: ...]` 문구를 다음처럼 교체하면 GitHub README에서 이미지가 표시됩니다.
-
-```markdown
-![Bookworm 메인 화면](./docs/screenshots/01-library.png)
-```
-
-**최소 권장 스크린샷 5장:** My Library 전체, 도서 등록, 도서 상세, AI Integration 설정, AI 생성 표지 결과. 추가로 도서 수정 및 Settings 화면을 넣으면 전체 기능을 더 잘 보여줄 수 있습니다.
